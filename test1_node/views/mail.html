@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Node.js Email</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function()
+        {
+            var to,subject,text;
+            $("#send_email").click(function()
+            {
+                to=$("#to").val();
+                subject=$("#subject").val();
+                text=$("#content").val();
+                $("#message").text("Sending E-mail...Please wait");
+                $.get("http://localhost:3000/send",{to:to,subject:subject,text:text},function(data)
+                {
+                    if(data=="sent")
+                    {
+                        $("#message").empty().html("Email has been sent at " +to+ " . Please check inbox!");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="container">
+    <div>
+        <h1>Email sending in Node js</h1>
+        <table>
+            <tr>
+               <td> <input id="to" type="email" placeholder="Enter E-mail ID where you want to send" /></td>
+            </tr>
+            <tr>
+                <td><input id="subject" type="text" placeholder="Write Subject" /></td>
+            </tr>
+            <tr>
+                <td><textarea id="content" cols="40" rows="5" placeholder="Write what you want to send"></textarea></td>
+            </tr>
+            <tr>
+                <td><button id="send_email">Send Email</button></td>
+            </tr>
+        </table>
+        <span id="message"></span>
+    </div>
+</div>
+</body>
+</html>
+
+
